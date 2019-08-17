@@ -10,7 +10,7 @@
  */
 function dataCollection() {
 	
-	const NUM_SAMPLES = 5;
+	const NUM_SAMPLES = 200;
 	
 	/**
 	* cn: cookie name
@@ -64,6 +64,16 @@ function dataCollection() {
   function b2newline(x){
     return x.split('b').join('\n').substring(1,x.length);
 	}
+  
+  function download(filename, text) {
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+	}
 	
 	function recordPageLoadTime(){
     return new Promise((resolve) => {
@@ -95,8 +105,9 @@ function dataCollection() {
 		/* download if done or reload for next sample */
     Promise.all([tp,np]).then(() => {
 			if(complete) {
-        console.log(b2newline(ts));
-        //download(window.location.hostname+"-PageLoadTime.txt", b2newline(ts), "text/plain");
+        results = b2newline(ts)
+        console.log(results);
+        download(window.location.hostname+"-pageloadtimes.txt", results);
       }
       else location.reload(true);
 		});
