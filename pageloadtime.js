@@ -46,17 +46,6 @@ function dataCollection() {
 		});
 	}
 	
-	/**
-	* fn: file name; x: file data; xtype: file content type
-	*/
-	function download(fn, x, xtype) {
-    let a = document.createElement("a");
-    let file = new Blob([x], {type: xtype});
-    a.href = URL.createObjectURL(file);
-    a.download = fn;
-    a.click();
-	}
-	
   /**
 	* converts 'b' in string to '\n' and returns a new string
 	* x: string containing 'b'
